@@ -1,1 +1,46 @@
-<p>diagnostic-certainty works!</p>
+@if(this.confidence()) {
+    <div class="container">
+
+        <h2 class="title">Confianza del modelo en el diagnóstico</h2>
+
+        
+        <div class="content">
+            
+            <!-- Circle -->
+            <div class="circle">
+            <svg viewBox="0 0 120 120">
+                <circle class="bg" cx="60" cy="60" r="50"></circle>
+
+                <circle
+                class="progress"
+                cx="60"
+                cy="60"
+                r="50"
+                [style.strokeDasharray]="314"
+                [style.strokeDashoffset]="314 - (314 * confidencePercent() / 100)"
+                ></circle>
+            </svg>
+
+            <div class="percentage">
+                {{ confidencePercent() }}%
+            </div>
+            </div>
+
+            <!-- Text -->
+            <div class="info">
+                <h3>{{ fullLabel() }}</h3>
+                <p class="label">Confianza principal</p>
+                <h3 class="label">{{ prediction() || '—' }}</h3>
+            </div>
+
+        </div>
+
+    </div>
+} @else {
+    <div class="container">
+        <h2 class="title">Confianza del modelo en el diagnóstico</h2>
+        <div class="content-empty">
+            <p>Aún no se ha analizado ninguna imagen.</p>
+        </div>
+    </div>
+}

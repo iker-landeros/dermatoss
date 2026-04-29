@@ -1,0 +1,68 @@
+.container {
+  background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    border: 2px solid #CFD0D4;
+}
+
+.title{
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #27566C;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Circle */
+.circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+svg {
+  transform: rotate(-90deg);
+}
+
+circle {
+  fill: none;
+  stroke-width: 10;
+}
+
+.bg {
+  stroke: #e5e7eb;
+}
+
+.progress {
+  stroke: #0C4A69;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Percentage text */
+.percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Info */
+.info .label {
+  color: #64748b;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 24px;
+}
