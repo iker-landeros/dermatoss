@@ -1,8 +1,10 @@
 <div class="backdrop" (click)="closeModal()"></div>
 
 <div class="modal">
-    <h2>Nuevo caso</h2>
+    <h2 class="title">Nuevo caso</h2>
 
+    <!-- File -->
+    <label>Imagen de la lesión</label>
     <input 
         type="file" 
         accept="image/*" 
@@ -10,6 +12,7 @@
         (change)="onFileChange($event)" 
     />
 
+    <!-- Hypothesis -->
     <label>Hipótesis del médico</label>
     <select (change)="hypothesis.set($any($event.target).value)">
         <option value="">Selecciona una opción</option>
@@ -30,6 +33,7 @@
             {{ errorMessage() }}
         </p>
     }
+
     <div class="actions">
         <button (click)="submit()" [disabled]="!selectedFile() || isLoading()">
             {{ isLoading() ? 'Analizando...' : 'Analizar' }}

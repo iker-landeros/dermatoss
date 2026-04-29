@@ -1,0 +1,46 @@
+.container {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid #CFD0D4;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 1.25rem;
+    font-weight: 600;
+    color: #27566C;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 🔵 Number circle */
+.circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #135377;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.feature p {
+  margin: 0;
+  font-size: 14px;
+}

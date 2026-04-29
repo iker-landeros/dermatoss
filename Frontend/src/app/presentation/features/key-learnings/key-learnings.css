@@ -1,0 +1,30 @@
+.container {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid #CFD0D4;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #27566C;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.content {
+  background: #CDE8F7;
+  padding: 16px;
+  border-radius: 10px;
+  border-left: 6px solid #27566C;
+}
+
+.content p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #27566C;
+}

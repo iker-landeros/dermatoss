@@ -1,1 +1,11 @@
-<p>key-learnings works!</p>
+<div class="container">
+    <h2 class="title">Aprendizaje clave</h2>
+
+    @if(!learning()) {
+        <p>Aún no hay aprendizajes clave para mostrar.</p>
+    } @else {
+        <div class="content">
+            <p>{{ learning() }}</p>
+        </div>
+    }
+</div>

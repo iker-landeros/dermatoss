@@ -1,1 +1,23 @@
-<p>key-features works!</p>
+
+<div class="container">
+
+    <h2 class="title">Características clave de la lesión</h2>
+
+    @if(features().length > 0) {
+        <div class="features">
+            @for(feature of features(); track feature) {
+                <div class="feature">
+
+                    <div class="circle">
+                        {{ features().indexOf(feature) + 1 }}
+                    </div>
+
+                <p>{{ feature }}</p>
+
+                </div>
+            }
+        </div>
+    } @else {
+        <p>Aún no hay características clave para mostrar.</p>
+    }
+</div>
