@@ -25,7 +25,7 @@ export class NewImageModal {
     this.isLoading.set(true);
     this.submitImage.emit({
       file: this.selectedFile(),
-      hypothesis: this.hypothesis
+      hypothesis: this.hypothesis()
     });
     this.close.emit();
   }

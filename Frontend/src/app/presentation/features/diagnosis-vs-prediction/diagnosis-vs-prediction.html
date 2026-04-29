@@ -1,1 +1,20 @@
-<p>diagnosis-vs-prediction works!</p>
+<div class="container" >
+
+  <h2 class="title">Tu Hipótesis vs Predicción del Modelo</h2>
+
+  <!-- Hypothesis -->
+  <p class="label">Tu hipótesis</p>
+  <div class="pill" [class.match]="isMatch() && hypothesis()" [class.mismatch]="!isMatch() && hypothesis()">
+    <span class="dot"></span>
+    <span>{{ hypothesis() || '—' }}</span>
+  </div>
+
+
+  <!-- Prediction -->
+  <p class="label">Predicción del modelo de IA</p>
+  <div class="pill" [class.match]="isMatch() && prediction()" [class.mismatch]="!isMatch() && prediction()">
+    <span class="dot"></span>
+    <span>{{ prediction() || '—' }}</span>
+  </div>
+
+</div>

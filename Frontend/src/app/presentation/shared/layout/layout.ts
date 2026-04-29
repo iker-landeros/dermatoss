@@ -35,7 +35,7 @@ export class Layout {
   api = inject(ApiService);
   analysis = inject(AnalysisService);
 
-  result: any = null;
+  result= signal<any>(null);
 
   openModal() {
     this.showModal.set(true);
@@ -50,6 +50,9 @@ export class Layout {
     this.errorMessage.set(null);
 
     const file = data.file;
+    const hypothesis = data.hypothesis;
+
+    this.analysis.setHypothesis(hypothesis);
 
     // 🔹 Convert image to base64 (for original preview)
     const reader = new FileReader();
@@ -63,7 +66,7 @@ export class Layout {
       // 🔹 Call API
       this.api.predictImage(file).subscribe({
         next: (res) => {
-          this.result = res;
+          this.result.set(res);
 
           // ✅ Store API result (this triggers analyzed-image update)
           this.analysis.setResult(res);

@@ -11,10 +11,18 @@
     />
 
     <label>Hipótesis del médico</label>
-    <select>
+    <select (change)="hypothesis.set($any($event.target).value)">
+        <option value="">Selecciona una opción</option>
+
         <option value="BKL">Queratosis benigna</option>
-        <option value="NV">Nevus</option>
+        <option value="NV">Nevo melanocítico</option>
         <option value="MEL">Melanoma</option>
+        <option value="BCC">Carcinoma basocelular</option>
+        <option value="AK">Queratosis actínica</option>
+        <option value="DF">Dermatofibroma</option>
+        <option value="VASC">Lesión vascular</option>
+        <option value="SCC">Carcinoma de células escamosas</option>
+        <option value="?">Otro / No identificado</option>
     </select>
 
     @if(errorMessage()) {
