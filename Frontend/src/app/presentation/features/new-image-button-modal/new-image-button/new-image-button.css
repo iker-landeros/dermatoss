@@ -1,0 +1,17 @@
+.fab {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background-color: #104966;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}

@@ -1,0 +1,31 @@
+<div class="backdrop" (click)="closeModal()"></div>
+
+<div class="modal">
+    <h2>Nuevo caso</h2>
+
+    <input 
+        type="file" 
+        accept="image/*" 
+        capture="environment"
+        (change)="onFileChange($event)" 
+    />
+
+    <label>Hipótesis del médico</label>
+    <select>
+        <option value="BKL">Queratosis benigna</option>
+        <option value="NV">Nevus</option>
+        <option value="MEL">Melanoma</option>
+    </select>
+
+    @if(errorMessage()) {
+        <p class="error">
+            {{ errorMessage() }}
+        </p>
+    }
+    <div class="actions">
+        <button (click)="submit()" [disabled]="!selectedFile || isLoading">
+            {{ isLoading() ? 'Analizando...' : 'Analizar' }}
+        </button>
+        <button (click)="closeModal()">Cancelar</button>
+    </div>
+</div>

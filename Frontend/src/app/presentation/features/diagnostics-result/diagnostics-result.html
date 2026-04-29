@@ -1,0 +1,7 @@
+@if (diagnosisResult() === null) {
+  <p id="diagnosis-result" class="pending">Captura una fotografía de la lesión para obtener una predicción de la diagnosis.</p>
+} @else if (diagnosisResult() === true) {
+  <p id="diagnosis-result" class="correct">Tu diagnóstico concuerda con la predicción.</p>
+} @else {
+  <p id="diagnosis-result" class="incorrect">Tu diagnóstico no concuerda con la predicción.</p>
+}

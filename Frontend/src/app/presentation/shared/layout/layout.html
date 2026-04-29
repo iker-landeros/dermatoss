@@ -1,0 +1,25 @@
+<header id="header">
+    <img id="logo" src="/logo.png" alt="Dermatoss Logo">
+    <div id="modulo-educativo">
+        <div id="circle"></div>
+        Módulo Educativo
+    </div>
+</header>
+
+<app-diagnostics-result></app-diagnostics-result>
+
+@if(showModal()) {
+  <app-new-image-modal
+    (close)="closeModal()"
+    [errorMessage]="errorMessage"
+    (submitImage)="handleSubmit($event)">
+  </app-new-image-modal>
+}
+
+<app-new-image-button (open)="openModal()"></app-new-image-button>
+
+<footer id="footer">
+    Esta es una herramienta que utiliza inteligencia artificial y puede cometer errores.
+    <br>
+    Por favor, verifique la información con un profesional de la salud antes de tomar cualquier decisión relacionada con su salud.
+</footer>

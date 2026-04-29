@@ -1,0 +1,47 @@
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-height: 4rem;
+}
+
+#circle {
+    width: 15px;
+    height: 15px;
+    background-color: #0190DC;
+    border-radius: 50%;
+}
+
+#modulo-educativo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1C495E;
+    padding: 10px 20px;
+    background-color: #D7E9F7;
+    border-radius: 15px;
+    border: 2px solid #f6f6f6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* display footer at the bottom and centered text */
+#footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1C495E;
+    font-size: 0.625rem;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+}

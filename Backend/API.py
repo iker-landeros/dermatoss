@@ -6,11 +6,16 @@
 # Import necessary libraries and modules.
 import torch
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from PIL import Image
 import torchvision.transforms as transforms
 import io
 import torch.nn as nn
 from torchvision import models
+
+# Enable CORS for the Flask application
+app = Flask(__name__)
+CORS(app)
 
 
 # Define the model architecture and load the pre-trained weights from the checkpoint.
@@ -42,9 +47,6 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], # Normalize the image using the mean and standard deviation of the ImageNet dataset
                          std=[0.229, 0.224, 0.225])
 ])
-
-# Initialize the Flask application.
-app = Flask(__name__)
 
 # Define the '/predict' endpoint to handle POST requests for image classification.
 ''' 

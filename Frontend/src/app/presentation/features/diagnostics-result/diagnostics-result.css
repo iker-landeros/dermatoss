@@ -1,0 +1,22 @@
+#diagnosis-result {
+    font-size: 1.1em;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    color: #F5FFFF;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+.pending {
+    background-color: #40819fb4;
+}
+
+.correct {
+    background-color: #396D85;
+}
+
+.incorrect {
+    background-color: #B23A48;
+}
