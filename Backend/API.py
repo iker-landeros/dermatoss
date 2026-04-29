@@ -6,22 +6,14 @@
 # Import necessary libraries and modules.
 import torch
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from PIL import Image
 import torchvision.transforms as transforms
 import io
 import torch.nn as nn
 from torchvision import models
-
-# Enable CORS for the Flask application
-app = Flask(__name__)
-CORS(app)
-
-
 import cv2
 import numpy as np
 import base64
-
 
 # Define the model architecture and load the pre-trained weights from the checkpoint.
 checkpoint = torch.load("Backend/model.pth", map_location="cpu") # Load the model checkpoint
@@ -52,6 +44,65 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], # Normalize the image using the mean and standard deviation of the ImageNet dataset
                          std=[0.229, 0.224, 0.225])
 ])
+
+# Grad-CAM implementation to generate heatmaps for visualizing the regions of the image that contribute most to the model's predictions.
+# Hook storage
+gradients = None
+activations = None
+
+def save_gradient(module, grad_input, grad_output):
+    global gradients
+    gradients = grad_output[0]
+
+def save_activation(module, input, output):
+    global activations
+    activations = output
+
+# Register hooks on the last convolutional layer
+target_layer = model.layer4[-1]
+target_layer.register_forward_hook(save_activation)
+target_layer.register_backward_hook(save_gradient)
+
+def generate_gradcam(image_tensor, class_idx):
+    global gradients, activations
+
+    model.zero_grad()
+    output = model(image_tensor)
+
+    one_hot = torch.zeros_like(output)
+    one_hot[0][class_idx] = 1
+
+    output.backward(gradient=one_hot)
+
+    grads = gradients[0].cpu().numpy()
+    acts = activations[0].cpu().detach().numpy()
+
+    weights = np.mean(grads, axis=(1, 2))
+    cam = np.zeros(acts.shape[1:], dtype=np.float32)
+
+    for i, w in enumerate(weights):
+        cam += w * acts[i]
+
+    cam = np.maximum(cam, 0)
+    cam = cv2.resize(cam, (224, 224))
+    cam = cam - np.min(cam)
+    cam = cam / (np.max(cam) + 1e-8)
+
+    return cam
+
+def overlay_cam_on_image(img_pil, cam):
+    img = np.array(img_pil.resize((224, 224)))
+    heatmap = cv2.applyColorMap(np.uint8(255 * cam), cv2.COLORMAP_JET)
+    heatmap = np.float32(heatmap) / 255
+
+    overlay = heatmap + np.float32(img) / 255
+    overlay = overlay / np.max(overlay)
+
+    overlay = np.uint8(255 * overlay)
+    return overlay
+
+# Initialize the Flask application.
+app = Flask(__name__)
 
 # Define the '/predict' endpoint to handle POST requests for image classification.
 ''' 
