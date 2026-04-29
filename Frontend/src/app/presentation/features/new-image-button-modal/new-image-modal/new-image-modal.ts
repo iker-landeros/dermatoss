@@ -14,17 +14,17 @@ export class NewImageModal {
 
   isLoading = signal<boolean>(false);
 
-  selectedFile!: File;
-  hypothesis: string = '';
+  selectedFile = signal<File | null>(null);
+  hypothesis = signal<string>('');
 
   onFileChange(event: any) {
-    this.selectedFile = event.target.files[0];
+    this.selectedFile.set(event.target.files[0]);
   }
 
   submit() {
     this.isLoading.set(true);
     this.submitImage.emit({
-      file: this.selectedFile,
+      file: this.selectedFile(),
       hypothesis: this.hypothesis
     });
     this.close.emit();

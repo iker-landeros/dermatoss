@@ -23,7 +23,7 @@
         </p>
     }
     <div class="actions">
-        <button (click)="submit()" [disabled]="!selectedFile || isLoading">
+        <button (click)="submit()" [disabled]="!selectedFile() || isLoading()">
             {{ isLoading() ? 'Analizando...' : 'Analizar' }}
         </button>
         <button (click)="closeModal()">Cancelar</button>

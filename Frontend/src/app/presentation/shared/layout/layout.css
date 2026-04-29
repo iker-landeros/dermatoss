@@ -34,6 +34,20 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
 }
 
+#columns-container {
+  display: flex;
+  align-items: flex-start; /* ensures both start at same Y position */
+  gap: 20px; /* optional spacing between columns */
+}
+
+#left-column {
+    flex: 1; /* takes up remaining space */
+}
+
+#right-column {
+    flex: 2; /* takes up remaining space */
+}
+
 /* display footer at the bottom and centered text */
 #footer{
     display: flex;

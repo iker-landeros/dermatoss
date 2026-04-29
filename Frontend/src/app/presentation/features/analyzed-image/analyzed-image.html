@@ -1,1 +1,37 @@
-<p>analyzed-image works!</p>
+<div id="container-image">
+    
+    <div id="inline">
+        <h2 class="section-title">Imagen analizada</h2>
+        
+        @if(originalImage()) {
+            <button (click)="toggleView()">
+                {{ showGradcam ? 'Original' : 'Grad-CAM' }}
+            </button>
+        }
+    </div>
+    
+    
+
+    <div class="image-container">
+        <!-- EMPTY STATE -->
+        @if(!originalImage()) {
+            <div class="placeholder">
+                <p>No hay imagen analizada aún</p>
+            </div>
+        }
+        <!-- IMAGE DISPLAY -->
+        @if(originalImage()) {
+            <div class="image-wrapper">
+                <img
+                    [src]="showGradcam ? gradcamImage() : originalImage()"
+                    alt="Analyzed"
+                    class="image-display"
+                />
+            </div>
+
+            @if(showGradcam) {
+                <p class="gradcam-note">Nota: Se muestra la imagen Grad-CAM resaltando las áreas de interés.</p>
+            }
+        }
+    </div>
+</div>

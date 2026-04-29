@@ -14,11 +14,15 @@ from torchvision import models
 import cv2
 import numpy as np
 import base64
+from flask_cors import CORS
 
 # Define the model architecture and load the pre-trained weights from the checkpoint.
 checkpoint = torch.load("Backend/model.pth", map_location="cpu") # Load the model checkpoint
 NUM_CLASSES = checkpoint["num_classes"] # Number of classes in the model
 CLASS_NAMES = [checkpoint["id2label"][i] for i in range(NUM_CLASSES)] # Class names corresponding to class indices
+
+app = Flask(__name__)
+CORS(app)
 
 def build_model(num_classes: int):  # Function to build the ResNet50 model with a custom fully connected layer
     model = models.resnet50(weights=None) 
@@ -100,9 +104,6 @@ def overlay_cam_on_image(img_pil, cam):
 
     overlay = np.uint8(255 * overlay)
     return overlay
-
-# Initialize the Flask application.
-app = Flask(__name__)
 
 # Define the '/predict' endpoint to handle POST requests for image classification.
 ''' 

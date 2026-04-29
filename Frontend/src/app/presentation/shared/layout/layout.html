@@ -8,6 +8,16 @@
 
 <app-diagnostics-result></app-diagnostics-result>
 
+<div id="columns-container">
+  <div id="left-column">
+      <app-analyzed-image></app-analyzed-image>
+  </div>
+
+  <div id="right-column">
+      <app-analyzed-image></app-analyzed-image>
+  </div>
+</div>
+
 @if(showModal()) {
   <app-new-image-modal
     (close)="closeModal()"
