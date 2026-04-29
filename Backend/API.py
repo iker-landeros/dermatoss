@@ -18,6 +18,11 @@ app = Flask(__name__)
 CORS(app)
 
 
+import cv2
+import numpy as np
+import base64
+
+
 # Define the model architecture and load the pre-trained weights from the checkpoint.
 checkpoint = torch.load("Backend/model.pth", map_location="cpu") # Load the model checkpoint
 NUM_CLASSES = checkpoint["num_classes"] # Number of classes in the model
@@ -38,7 +43,7 @@ def build_model(num_classes: int):  # Function to build the ResNet50 model with 
 model = build_model(NUM_CLASSES)
 model.load_state_dict(checkpoint["model_state_dict"]) # Load the model weights from the checkpoint
 model.eval() # Set the model to evaluation mode
-
+    
 
 # Define the image transformation pipeline to preprocess the input images before feeding them into the model.
 transform = transforms.Compose([
@@ -61,13 +66,13 @@ transform = transforms.Compose([
 '''
 @app.route("/predict", methods=["POST"])
 def predict():
-    # Check if an image file is included in the request
     if "image" not in request.files:
         return jsonify({"error": "No image file provided"}), 400
 
     file = request.files["image"]
-    image = Image.open(io.BytesIO(file.read())).convert("RGB") # Open the uploaded image and convert it to RGB format
-    tensor = transform(image).unsqueeze(0) # Add a batch dimension to the tensor
+    image = Image.open(io.BytesIO(file.read())).convert("RGB")
+
+    tensor = transform(image).unsqueeze(0)
 
     with torch.no_grad():
         outputs = model(tensor)
@@ -76,13 +81,21 @@ def predict():
 
     class_index = predicted.item()
 
-    return jsonify({ # Return the predicted class index, class name, and confidence score in the response
+    # Generate Grad-CAM
+    cam = generate_gradcam(tensor, class_index)
+    overlay = overlay_cam_on_image(image, cam)
+
+    # Convert image to bytes
+    _, buffer = cv2.imencode('.jpg', overlay)
+    img_bytes = io.BytesIO(buffer).getvalue()
+
+    return jsonify({
         "class_index": class_index,
         "class_name": CLASS_NAMES[class_index] if class_index < len(CLASS_NAMES) else str(class_index),
-        "confidence": round(confidence.item(), 4)
+        "confidence": round(confidence.item(), 4),
+        "gradcam_image": base64.b64encode(img_bytes).decode("utf-8")
     }), 200
-
 
 # Run the Flask application.
 if __name__ == "__main__":
-    app.run(debug=True) # Start the Flask application in debug mode
+    app.run(host='0.0.0.0', debug=True) 
